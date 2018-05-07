@@ -24,12 +24,10 @@ contract theCyberAssigner {
   // try to assign a membership to each of the submitted addresses.
 
   // The assigner will interact with theCyber contract at the given address.
-  //address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
-  address private constant THECYBERADDRESS_ = 0xD93E32A72208B24625f6601e90E287C38A55E4da;
+  address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
 
   // the assigner will use the entrants from the second gatekeeper contract.
-  //address private constant THECYBERGATEKEEPERADDRESS_ = 0xbB902569a997D657e8D10B82Ce0ec5A5983C8c7C;
-  address private constant THECYBERGATEKEEPERADDRESS_ = 0x03c58b60013897b3EcB20b2DA1D886CA082F2602;
+  address private constant THECYBERGATEKEEPERADDRESS_ = 0xbB902569a997D657e8D10B82Ce0ec5A5983C8c7C;
 
   // There can only be 128 entrant submissions.
   uint8 private constant MAXENTRANTS_ = 128;

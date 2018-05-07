@@ -11,7 +11,7 @@ contract theCyberClubhouse {
   event GrantAdmission(string passphrase);
 
   // Set the address of theCyber contract.
-  address private constant THECYBERADDRESS_ = 0xD93E32A72208B24625f6601e90E287C38A55E4da;
+  address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
 
   modifier membersOnly() {
     // Only allow transactions originating from theCyber contract.

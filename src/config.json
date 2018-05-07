@@ -1,11 +1,11 @@
 {
-	"networkId": 1,
-	"cyberAddress": "0x97A99C819544AD0617F48379840941eFbe1bfAE1",
-	"cyberUtilAddress": "0xcd26CE4798358115858A1A9713ECAc09b472a320",
-	"cyberClubhouseAddress": "0xB2dC7fb6f9ce38ccCe3C75574639088542CdB66F",
-	"contractDeployedBlock": 5228386,
-	"infuraHttp": "https://mainnet.infura.io/ARxDqGE5KZrNFGcH3Qnu",
-	"infuraWebsocket": "wss://mainnet.infura.io/_ws",
+	"networkId": 8045,
+	"cyberAddress": "0xD93E32A72208B24625f6601e90E287C38A55E4da",
+	"cyberUtilAddress": "0xd51C60770E7080Aa23AADE7E38198d676628A050",
+	"cyberClubhouseAddress": "0x88b2A9b33648B3F08713893B1647B7002796e7F2",
+	"contractDeployedBlock": 1,
+	"infuraHttp": "-not-available-",
+	"infuraWebsocket":  "-not-available-",
 	"ledgerAccountsLength": 5,
 	"ledgerAccountsOffset": 0
 }

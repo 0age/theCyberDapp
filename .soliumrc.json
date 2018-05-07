@@ -1,0 +1,25 @@
+{
+  "extends": "solium:all",
+  "plugins": [
+    "security"
+  ],
+  "rules": {
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "indentation": [
+      "error",
+      2
+    ],
+    "security/no-tx-origin": "off",
+    "security/no-inline-assembly": "off",
+    "security/no-block-members": [
+      1,
+      ["blockhash"]
+    ],
+    "arg-overflow": "off",
+    "camelcase": "off",
+    "uppercase": "off"
+  }
+}

@@ -11,13 +11,35 @@ To run the dapp locally, first install the required dependencies:
 $ yarn install
 ```
 
-To run a development version of the frontend (https is required for ledger support and will show a security warning due to the self-signed cert):
+To start a local RPC backend running on port `8845` with a network id of `8045` and a group of known deterministic (a.k.a. unsafe) addresses:
+```
+$ ./node_modules/ganache-cli/build/cli.node.js -p 8845 -i 8045 -m 'spy heavy leaf such exotic fiction seminar sign immune relief increase buddy' --gas-limit 8000000
+```
+
+Next, deploy and set up the contracts for theCyber and all ancillary contracts (note that all deploy contracts are hardcoded with compiled contract bytecode & ABI):
+```
+$ node deploy/all+setup.js
+```
+
+To run tests (requires truffle):
+```
+$ truffle test ./test/theCyber.js
+```
+
+To run code linter on contracts:
+```
+$ ./node_modules/solium/bin/solium.js -d contracts
+```
+
+Note: the provided contracts contain references to contract addresses on the mainnet. Be sure to change them to match the developed contract deploy addresses if you want to modify and redeploy them.
+
+To run a development version of the frontend (select custom connection method - also, https will require bypassing the self-signed cert):
 
 ```
-$ HTTPS=true yarn start
+$ HTTPS=true REACT_APP_WEB3_PROVIDER="ws://localhost:8845" yarn start
 ```
 
-To build the production frontend (compiles to `build` folder), set the `homepage` field in `package.json` followed by:
+To build a static frontend (compiles to `build` folder):
 
 ```
 $ yarn run build
