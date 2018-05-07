@@ -4,6 +4,8 @@ A basic dapp frontend for interacting with theCyber, a decentralized club on the
 
 The contracts can be found at [thecyber.eth](https://etherscan.io/address/thecyber.eth#code) and [util.thecyber.eth](https://etherscan.io/address/util.thecyber.eth#code). To join as a member, register with the gatekeeper contract at [gatekeepertwo.thecyber.eth](https://etherscan.io/address/gatekeepertwo.thecyber.eth#code) (be aware that the contract will only accept the first 128 entrants).
 
+The dapp is available at [https://thecyber.network](https://thecyber.network). It is advised to run against a custom node using a websocket RPC to properly support contract event subscriptions.
+
 To run the dapp locally, first install the required dependencies:
 ```
 $ yarn install
