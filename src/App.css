@@ -1,0 +1,168 @@
+.App {
+  text-align: center;
+  font-size: 85%;
+}
+
+.App-header {
+  padding: 20px;
+  color: #0f0;
+  white-space: wrap;
+}
+
+.App-title {
+  font-size: 1.23em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+ul {
+  list-style: none;
+  text-align: left;
+  padding-left: 30px;
+}
+
+button {
+  font-family: "Lucida Console", Monaco, monospace;
+  background-color: black;
+  color: white;  
+  float: left;
+  outline: none !important;
+}
+
+button:hover {
+  color: #0f0 !important;
+}
+
+checkbox:checked {
+  background-color: #f0f;
+  color: #0f0;
+}
+
+input {
+  font-family: "Lucida Console", Monaco, monospace;
+  background-color: black;
+  color: white;
+  float: left;
+  text-align: center;
+  outline: none !important;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + span {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  width: 12px;
+  height: 12px;
+  margin: -1px 0px 0 0;
+  vertical-align: middle;
+  background: black left top no-repeat;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + span {
+  background: #0f0 -19px top no-repeat;
+}
+
+input[type="checkbox"] + span {
+  margin-right: 4px;
+}
+
+input:focus { 
+    outline: none !important;
+    border-color: #0f0;
+    box-shadow: 0 0 10px #0f0;
+}
+
+.dropzone:hover {
+  outline: none !important;
+  box-shadow: 0 0 20px #0f0; 
+  cursor: pointer;
+}
+
+textarea {
+  font-family: "Lucida Console", Monaco, monospace;
+  background-color: black;
+  color: white;
+  margin: auto;
+  width: 100%;
+  padding: 5px;
+  overflow-y: scroll;
+  height: 120px;
+  resize: none;
+}
+
+textarea:focus { 
+    outline: none !important;
+    border-color: #0f0;
+    box-shadow: 0 0 10px #0f0;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.9; /* Firefox */
+}
+
+a:link {
+  color: lightblue;
+}
+
+a:visited {
+  color: plum;
+}
+
+a:hover {
+  color: skyblue;
+}
+
+.choices {
+     text-align: center;
+     float: none;
+}
+
+.choice-1 {
+     display: inline-block;
+     max-width: 250px;
+     float: none;
+}
+
+.choice-2 {
+     display: inline-block;
+     max-width: 250px;
+     float: none;
+}
+
+.choice-3 {
+     display: inline-block;
+     max-width: 250px;
+     float: none;
+}
+
+.choice-4 {
+     display: inline-block;
+     max-width: 250px;
+     float: none;
+}
+
+@keyframes flashAnimation {
+  0% {
+    color: tomato;
+  }
+  2% {
+    color: orange;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.flash {
+  animation-name: flashAnimation;
+  animation-duration: 5s;
+}
