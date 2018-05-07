@@ -22,8 +22,7 @@ contract theCyberGatekeeperTwo {
   // assign 128 new members, each owned by one of the submitted addresses.
 
   // The gatekeeper will interact with theCyber contract at the given address.
-  //address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
-  address private constant THECYBERADDRESS_ = 0xD93E32A72208B24625f6601e90E287C38A55E4da;
+  address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
 
   // There can only be 128 entrant submissions.
   uint8 private constant MAXENTRANTS_ = 128;

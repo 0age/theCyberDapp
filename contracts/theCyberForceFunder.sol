@@ -6,7 +6,7 @@ contract theCyberForceFunder {
   // it does not implement any payable keywords. We can then test the donation
   // functionality.
 
-  address private constant THECYBERADDRESS = 0xD93E32A72208B24625f6601e90E287C38A55E4da;
+  address private constant THECYBERADDRESS = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
 
   function () public payable {}
 
