@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "homepage": "https://thecyber.network",
   "private": true,
+  "browserslist": [
+    "> 5%"
+  ],
   "dependencies": {
-    "@ledgerhq/hw-transport-u2f": "^4.7.3",
-    "@ledgerhq/web3-subprovider": "^4.11.0",
+    "@ledgerhq/hw-transport-u2f": "4.7.3",
+    "@ledgerhq/web3-subprovider": "4.11.0",
     "big-number": "^0.4.0",
     "moment": "^2.20.1",
     "openpgp": "^2.6.2",
@@ -14,9 +17,9 @@
     "react-dropzone": "^4.2.8",
     "react-file-reader-input": "^1.1.4",
     "react-files": "^2.4.3",
-    "react-scripts": "1.1.1",
+    "react-scripts": "@2.0.0-next.b2fd8db8",
     "react-simple-flex-grid": "^1.2.1",
-    "web3": "^1.0.0-beta.33",
+    "web3": "1.0.0-beta.33",
     "web3-provider-engine": "^14.0.5"
   },
   "scripts": {
@@ -24,5 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/0age/theCyberDapp",
+  "author": "0age <0age@protonmail.com>",
+  "license": "MIT"
 }
