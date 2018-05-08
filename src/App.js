@@ -10,7 +10,9 @@ import { Row, Col } from 'react-simple-flex-grid'
 import 'react-simple-flex-grid/lib/main.css'
 import './App.css'
 import config from './config.json'
+
 var openpgp = require('openpgp')
+openpgp.initWorker({path: 'openpgp.worker.min.js'})
 
 const MemberGreeting = ({
   networkId, foundMember, memberName, memberAccountIndex, messageBody,
@@ -1236,6 +1238,9 @@ class Main extends Component {
 
     this.onDrop = this.onDrop.bind(this)
     this.onDropPrivate = this.onDropPrivate.bind(this)
+    this.generateKeypair = this.generateKeypair.bind(this)
+    this.downloadKeypair = this.downloadKeypair.bind(this)
+    this.wipeKeysAndPassphrase = this.wipeKeysAndPassphrase.bind(this)
     this.decryptMessages = this.decryptMessages.bind(this)
     this.getPassphrase = this.getPassphrase.bind(this)
     this.decryptPrivateKey = this.decryptPrivateKey.bind(this)
@@ -1372,10 +1377,12 @@ class Main extends Component {
       memberId: null,
       memberName: null,
       memberKey: null,
+      memberKeyFingerprint: null,
       memberSince: null,
       memberInactiveSince: null,
       droppedMemberPublicKey: false,
       droppedMemberPrivateKey: false,
+      generatingKeypair: false,
       passphrase: '',
       keyDecrypted: null,
       showCursor: true,
@@ -1418,7 +1425,6 @@ class Main extends Component {
     // check if the blockchain is syncing & ensure that web3 is working
     this.web3.eth.isSyncing()
     .then(syncObject => {
-      console.log(syncObject)
       // get latest block / wallet information & set up polling for updates
       this.updateToLatestBlock()
       const intervalId = setInterval(this.updateToLatestBlock, 500)
@@ -1444,7 +1450,6 @@ class Main extends Component {
 
       return Promise.reject(false)
     })
-
   }
 
   handleBroadcastFormChange = (event) => {
@@ -1593,6 +1598,91 @@ class Main extends Component {
     reader.readAsText(files[0])
   }
 
+  generateKeypair = (bits) => {
+    if (bits !== 4096) {
+      bits = 2048
+    }
+    const name = this.state.memberName ? this.state.memberName : 'noNameSet'
+    const email = `${name}@theCyber.eth`
+
+    const message = 'Enter the passphrase for your new private key ' +
+                    '(or leave empty for no passphrase):'
+    let passphrase = prompt(message, '')
+    if (passphrase !== null) {
+      passphrase = ''
+    }
+
+    let options = {
+      userIds: [{name: name, email: email}],
+      numBits: bits,
+      passphrase: passphrase
+    }
+
+    console.log(`generating ${bits}-bit keypair, please wait...`)
+    this.setState({
+      generatingKeypair: true,
+      passphrase: passphrase
+    }, () => {
+      openpgp.generateKey(options).then(key => {
+        const privkey = key.privateKeyArmored
+        const pubkey = key.publicKeyArmored
+        console.log('successfully generated new keypair.')
+        this.setState({
+          generatingKeypair: false,
+          droppedMemberPublicKey: pubkey,
+          droppedMemberPrivateKey: privkey
+        })
+      })
+    })
+  }
+
+  downloadKeypair = () => {
+    const privkey = this.state.droppedMemberPrivateKey
+    if (privkey) {
+      let element = document.createElement('a')
+      element.setAttribute('href', 'data:application/x-pem-file;charset=utf-8,' + encodeURIComponent(privkey))
+      element.setAttribute('download', 'theCyberKey.pem')
+      element.style.display = 'none'
+      document.body.appendChild(element)
+      element.click()
+      document.body.removeChild(element)
+    }
+
+    const pubkey = this.state.droppedMemberPublicKey
+    const onChainKey = this.state.memberKey
+    if (pubkey) {
+      let element = document.createElement('a')
+      element.setAttribute('href', 'data:application/x-pem-file;charset=utf-8,' + encodeURIComponent(pubkey))
+      element.setAttribute('download', 'theCyberKey.pub')
+      element.style.display = 'none'
+      setTimeout(() => {
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)        
+      }, 100)
+    } else if (onChainKey) {
+      let element = document.createElement('a')
+      element.setAttribute('href', 'data:application/x-pem-file;charset=utf-8,' + encodeURIComponent(onChainKey))
+      element.setAttribute('download', 'theCyberKey.pub')
+      element.style.display = 'none'
+      setTimeout(() => {
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
+      }, 100)
+    }
+  }
+
+  wipeKeysAndPassphrase = () => {
+    this.setState({
+      droppedMemberPrivateKey: false,
+      droppedMemberPublicKey: false,
+      passphrase: ''
+    }, () => {
+      console.log('wiped locally stored keys and passphrase.')
+    })
+  }
+
   setEvents = () => {
     if (!this.state.eventsSet) {
       console.log('getting event histories...')
@@ -1700,7 +1790,11 @@ class Main extends Component {
         {fromBlock: this.state.contractDeployedBlock, toBlock: 'latest'}
       ).on('data', event => {
         const pubkey = openpgp.key.readArmored(event.returnValues.newMemberKey).keys.pop()
-        const fingerprint = ((pubkey && pubkey.primaryKey && pubkey.primaryKey.fingerprint) ? pubkey.primaryKey.fingerprint : '(unknown fingerprint)')
+        const fingerprint = (
+          (pubkey && pubkey.primaryKey && pubkey.primaryKey.fingerprint) ?
+          pubkey.primaryKey.fingerprint.match(/.{4}/g).join(':') :
+          '(unknown fingerprint)'
+        )
         const message = `new member key: ${fingerprint}`
         this.state.newMemberKeyEvents.push(event)
         this.web3.eth.getBlock(event.blockNumber).then(block => {
@@ -1948,8 +2042,8 @@ class Main extends Component {
                 message: openpgp.message.readArmored(event.returnValues.message),
                 privateKey: privateKey
             }).then(plaintext => {
-              const messageContents = `decrypted message - ${plaintext.data}`
-              const message = `direct message to member ${event.returnValues.toMemberId}:\n${messageContents}`
+              const messageContents = `${plaintext.data}`
+              const message = `direct message to member ${event.returnValues.toMemberId} (decrypted):\n${messageContents}`
               this.state.directMessageEvents.push(event)
               this.web3.eth.getBlock(event.blockNumber).then(block => {
                 const stamp = block.timestamp + (event.logIndex / 1000)
@@ -3694,7 +3788,8 @@ class Main extends Component {
 
       this.setState({
         memberName: this.web3.utils.hexToUtf8(result.memberName),
-        memberKey: fingerprint,
+        memberKey: result.memberKey,
+        memberKeyFingerprint: fingerprint,
         memberSince: (
           result.memberSince !== '0' ?
           moment.unix(result.memberSince).format('MM/DD/YY h:mm:ss a') :
@@ -4004,11 +4099,10 @@ class Main extends Component {
 
   getPassphrase = async () => {
     const message = "Enter the passphrase for your private key " +
-                    "(or leave empty for no key):"
+                    "(or leave empty for no passphrase):"
     let passphrase = prompt(message, "")
-    console.log(passphrase)
 
-    if (passphrase != null) {
+    if (passphrase !== null) {
       this.setState({
         passphrase: passphrase
       }, () => {
@@ -4155,7 +4249,7 @@ class Main extends Component {
                               {'\u00a0key =======>\u00a0'}
                             </div>
                             <div style={{...this.style, float: 'left'}}>
-                              {this.state.memberKey ? <span style={{color: 'white'}}>{this.state.memberKey}</span> : <span style={{color: 'red'}}>{'<no key set>'}</span>}
+                              {this.state.memberKeyFingerprint ? <span style={{color: 'white'}}>{this.state.memberKeyFingerprint}</span> : <span style={{color: 'red'}}>{'<no key set>'}</span>}
                             </div>
                             <div style={{...this.style, clear: 'both', 'padding': '8x'}} />
                             <div style={{...this.style, float: 'left'}}>
@@ -4414,7 +4508,7 @@ class Main extends Component {
                             <br />
 
                             <div style={{...this.style, float: "left"}}>
-                              {"Personal functions:\u00a0\u00a0"}
+                              {"Keypair management:\u00a0\u00a0"}
                             </div>
                             <div style={{...this.style, float: 'left'}}>
                               <Dropzone
@@ -4437,6 +4531,27 @@ class Main extends Component {
                                 </div>
                               </Dropzone>
                             </div>
+                            <button
+                              onClick={() => this.generateKeypair(4096)}
+                            >
+                              {this.state.generatingKeypair ? 'generating keypair...\u00a0' : 'generate a new keypair'}
+                            </button>
+                            <button
+                              onClick={() => this.downloadKeypair()}
+                            >
+                              {'download keys'}
+                            </button>
+                            <button
+                              onClick={() => this.wipeKeysAndPassphrase()}
+                            >
+                              {'wipe keys & passphrase'}
+                            </button>
+                            <div style={{...this.style, clear: 'both', 'padding': '8x'}} />
+                            <br />
+
+                            <div style={{...this.style, float: "left"}}>
+                              {"Personal functions:\u00a0\u00a0"}
+                            </div>                   
                             <button
                               onClick={() => this.getMemberInfo(this.state.memberId)}
                             >
