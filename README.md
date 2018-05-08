@@ -31,7 +31,7 @@ To run code linter on contracts:
 $ ./node_modules/solium/bin/solium.js -d contracts
 ```
 
-Note: the provided contracts contain references to contract addresses on the mainnet. Be sure to change them to match the developed contract deploy addresses if you want to modify and redeploy them.
+*Note: the provided contracts contain references to contract addresses on the mainnet. Be sure to change them to match the development contract deploy addresses if you want to modify and redeploy them.*
 
 To run a development version of the frontend (select custom connection method - also, https will require bypassing the self-signed cert):
 
@@ -44,3 +44,12 @@ To build a static frontend (compiles to `build` folder):
 ```
 $ yarn run build
 ```
+
+Collaboration is welcome - just fork this repo and submit a pull request (or request to be added as a maintainer). A few features that still need to be implemented include:
+
+* secure local storage that persists message history - currently, encrypted direct messages cannot be read by the sender once sent
+* use of openpgp.js keyrings for managing multiple private keys - that way, old encrypted messages can still be read after a member changes their public key
+* responsive design improvements to the dapp - mobile web3 browsers such as Cipher Browser will work, but are not pretty
+* off-chain messaging via webRTC - this may be better suited to another dedicated dapp that reads information from theCyber but does not submit any transactions. The best method for decentralized signaling / peer discovery is also still an open question.
+* more tests :joy:
+* any other ideas for improvements - theCyber belongs to each member equally!
