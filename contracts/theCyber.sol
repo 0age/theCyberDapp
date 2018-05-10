@@ -40,8 +40,7 @@ contract theCyber {
   uint16 private constant MAXMEMBERS_ = 256;
 
   // A membership that has been marked as inactive for 90 days may be revoked.
-  //uint64 private constant INACTIVITYTIMEOUT_ = 90 days;
-  uint64 private constant INACTIVITYTIMEOUT_ = 5 seconds;
+  uint64 private constant INACTIVITYTIMEOUT_ = 90 days;
 
   // Set the ethereum tip jar (ethereumfoundation.eth) as the donation address.
   address private constant DONATIONADDRESS_ = 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359;
