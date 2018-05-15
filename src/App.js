@@ -55,14 +55,7 @@ const MemberGreeting = ({
         </div>
         <div style={{...style, float: 'right'}}>
           <a
-            href={`https://${
-              networkId === 3 ?
-                'ropsten.' :
-                ''}etherscan.io/address/${
-              networkId === 3 ?
-                config.cyberClubhouseAddress :
-                'clubhouse.thecyber.eth'
-            }#code`}
+            href={'https://thecyberclub.house'}
             target="_blank"
           >
             {'clubhouse'}
@@ -101,14 +94,7 @@ const MemberGreeting = ({
         </div>
         <div style={{...style, float: 'right'}}>
           <a
-            href={`https://${
-              networkId === 3 ?
-                'ropsten.' :
-                ''}etherscan.io/address/${
-              networkId === 3 ?
-                config.cyberClubhouseAddress :
-                'clubhouse.thecyber.eth'
-            }#code`}
+            href={'https://thecyberclub.house'}
             target="_blank"
           >
             {'clubhouse'}
