@@ -2409,7 +2409,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2487,7 +2488,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2565,7 +2567,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2643,7 +2646,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2731,7 +2735,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2808,7 +2813,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2835,7 +2841,8 @@ class Main extends Component {
       this.state.theCyberContract.methods.broadcastMessage(
         message
       ).send({
-        from: this.state.memberAccount.address
+        from: this.state.memberAccount.address,
+        gas: 3000000
       }).on('transactionHash', hash => {
         console.log('transaction sent. Hash:', hash)
         let txpool = this.state.txpool
@@ -2886,7 +2893,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -2993,7 +3001,8 @@ class Main extends Component {
               console.log('transaction confirmations:', confirmationNumber)
             }).on('error', (error, receipt) => {
               let txpool = this.state.txpool
-              if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+              if (receipt &&
+                  Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
                   this.state.txpool[receipt.transactionHash].confirmed === false) {
                 txpool[receipt.transactionHash].failed = true
               }
@@ -3062,7 +3071,8 @@ class Main extends Component {
           console.log('transaction confirmations:', confirmationNumber)
         }).on('error', (error, receipt) => {
           let txpool = this.state.txpool
-          if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+          if (receipt &&
+              Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
               this.state.txpool[receipt.transactionHash].confirmed === false) {
             txpool[receipt.transactionHash].failed = true
           }
@@ -3142,7 +3152,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3224,7 +3235,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3314,7 +3326,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3392,7 +3405,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3577,7 +3591,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3658,7 +3673,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3735,7 +3751,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3812,7 +3829,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
@@ -3889,7 +3907,8 @@ class Main extends Component {
         console.log('transaction confirmations:', confirmationNumber)
       }).on('error', (error, receipt) => {
         let txpool = this.state.txpool
-        if (Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
+        if (receipt &&
+            Object.keys(this.state.txpool).includes(receipt.transactionHash) &&
             this.state.txpool[receipt.transactionHash].confirmed === false) {
           txpool[receipt.transactionHash].failed = true
         }
